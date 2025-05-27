@@ -1,0 +1,18 @@
+ from ta.trend import SMAIndicator, EMAIndicator
+from ta.momentum import RSIIndicator
+from ta.volatility import BollingerBands
+
+def add_indicators(data):
+    # Moving Averages
+    data['SMA_20'] = SMAIndicator(data['close'], window=20).sma_indicator()
+    data['EMA_20'] = EMAIndicator(data['close'], window=20).ema_indicator()
+    
+    # RSI
+    data['RSI_14'] = RSIIndicator(data['close'], window=14).rsi()
+    
+    # Bollinger Bands
+    bb = BollingerBands(data['close'], window=20, window_dev=2)
+    data['upper_band'] = bb.bollinger_hband()
+    data['lower_band'] = bb.bollinger_lband()
+    
+    return data
